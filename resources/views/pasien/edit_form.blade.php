@@ -9,8 +9,7 @@
         <div class="form-group row">
             {!! Form::label('no_rm', 'No RM', ['class' => 'control-label col-sm-3 col-form-label']) !!}
             <div class="col-sm-9">
-            <?php $new_rm = $latestnorm+1 ?>
-            {!! Form::number('no_rm', $new_rm, ['class' => 'form-control', 'id' => 'no_rm', 'readonly']) !!}
+            {!! Form::number('no_rm', null, ['class' => 'form-control', 'id' => 'no_rm', 'readonly']) !!}
             </div>
         </div>
         <div class="form-group row">
@@ -28,7 +27,7 @@
         <div class="form-group row">
             {!! Form::label('tgl_lahir', 'Tanggal Lahir', ['class' => 'control-label col-sm-3 col-form-label']) !!}
             <div class="col-sm-9">  
-                {!! Form::text('tgl_lahir', null, ['class' => 'form-control', 'id'=>'tgl_lahir']) !!}    
+                {!! Form::text('tgl_lahir', date('d-m-Y', strtotime($model->tgl_lahir)), ['class' => 'form-control', 'id'=>'tgl_lahir', 'data-inputmask' => "'alias':'dd/mm/yyyy'", 'data-mask']) !!}    
             </div>
         </div>  
         <div class="form-group row">

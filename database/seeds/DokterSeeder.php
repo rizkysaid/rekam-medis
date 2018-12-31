@@ -20,10 +20,14 @@ class DokterSeeder extends Seeder
         foreach(range(0,15) as $i){
         	DB::table('dokter')->insert([
         		'nama' => $faker->name,
+                'id_gender' => $faker->numberBetween($min=1, $max=2),
         		'alamat' => $faker->address,
+                'tgl_lahir' => $faker->dateTimeThisCentury()->format('Y-m-d'),
+                'usia' => $faker->numberBetween($min=25, $max=65),
         		'no_telp' => $faker->phoneNumber,
         		'id_poli' => $faker->numberBetween($min=1, $max=5),
-        		'id_spesialis' => $faker->numberBetween($min=1, $max=15)
+        		'id_spesialis' => $faker->numberBetween($min=1, $max=15),
+                'created_at' => $faker->dateTime($max = 'now', $timezone = null)
         	]);
         }
     }

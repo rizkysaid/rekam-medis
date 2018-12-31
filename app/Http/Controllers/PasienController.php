@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DataTables;
 use DB;
 use App\Pasien;
-use App\Sex;
+use App\Gender;
 use App\Pekerjaan;
 use App\Pendidikan;
 use App\Status_kawin;
 use App\Pasien_tp;
-use DataTables;
+use Carbon\Carbon;
 
 class PasienController extends Controller
 {
@@ -31,16 +32,16 @@ class PasienController extends Controller
      */
     public function create()
     {
-        $pasien = new Pasien();
+        $model = new Pasien();
         $latestnorm = DB::table('pasien')->max('no_rm');
-        $sex = Sex::pluck('detail_sex', 'id');
+        $jk = Gender::pluck('detail_gender', 'id');
         $pekerjaan = Pekerjaan::pluck('nama', 'id');
         $pendidikan = Pendidikan::pluck('nama', 'id');
         $st_kawin = Status_kawin::pluck('nama', 'id');
         $pasien_tp = Pasien_tp::pluck('nama', 'id');
 
-        return view('pasien.form', compact('pasien', 'sex', 'latestnorm', 'pekerjaan', 'pendidikan', 'st_kawin', 'pasien_tp'));
-        //dd($sex);
+        return view('pasien.form', compact('model', 'jk', 'latestnorm', 'pekerjaan', 'pendidikan', 'st_kawin', 'pasien_tp'));
+        //dd($gender);
     }   
 
     /**
@@ -53,19 +54,37 @@ class PasienController extends Controller
     {
         //validasi
         $this->validate($request, [
-            'no_rm' => 'required|integer|max:8|unique:pasien,no_rm',
-            'nama' => 'required|string|max:50',
-            'sex' => 'reqired|integer',
-            'tgl_lahir' => 'required',
-            'alamat' => 'required|string|max:255',
-            'nama_wali' => 'string|max:50',
-            'tipe' => 'required|integer',
-            'bpjs' => 'integer',
-            'ktp' => 'integer'
+            /*'no_rm' => 'required|unique:pasien,no_rm',*/
+            'nama' => 'required|string|max:30',
+            'id_gender' => 'required',
+            'id_status_kawin' => 'required',
+            'id_pekerjaan' => 'required',
+            'id_pendidikan' => 'required',
+            'id_pasien_tp' => 'required'
         ]);
 
-        //simpan ke database
-        $pasien = Pasien::create($request->all());
+        date_default_timezone_set('Asia/Jakarta');
+        $tgl = $request->tgl_lahir;
+        $tgl = implode("-", array_reverse(explode("/", $tgl)));
+        $usia = date_diff(date_create($tgl), date_create('now'))->y;
+        
+        $pasien = new pasien;
+            $pasien->no_rm = $request->no_rm;
+            $pasien->nama = ucwords($request->nama);
+            $pasien->id_gender = $request->id_gender;
+            $pasien->tgl_lahir = $tgl;
+            $pasien->usia = $usia;
+            $pasien->alamat = ucwords($request->alamat);
+            $pasien->no_telp = $request->no_telp;
+            $pasien->id_pekerjaan = $request->id_pekerjaan;
+            $pasien->id_pendidikan = $request->id_pendidikan;
+            $pasien->id_status_kawin = $request->id_status_kawin;
+            $pasien->id_gol_darah = '5'; //lain-lain(belum di-set)
+            $pasien->id_pasien_tp = $request->id_pasien_tp;
+            $pasien->nm_wali = ucwords($request->nm_wali);
+            $pasien->no_ktp = $request->no_ktp;
+            $pasien->no_bpjs = $request->no_bpjs;
+            $pasien->save();
         return $pasien;
     }
 
@@ -88,7 +107,15 @@ class PasienController extends Controller
      */
     public function edit($id)
     {
-        //
+        $model = Pasien::with('gender', 'pekerjaan', 'pendidikan', 'status_kawin', 'pasien_tp')->findOrFail($id);
+        $jk = Gender::pluck('detail_gender', 'id');
+        $pekerjaan = Pekerjaan::pluck('nama', 'id');
+        $pendidikan = Pendidikan::pluck('nama', 'id');
+        $st_kawin = Status_kawin::pluck('nama', 'id');
+        $pasien_tp = Pasien_tp::pluck('nama', 'id');
+
+        return view('pasien.edit_form', compact('model', 'jk', 'pekerjaan', 'pendidikan', 'st_kawin', 'pasien_tp'));
+        //dd($model);
     }
 
     /**
@@ -100,7 +127,39 @@ class PasienController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //validasi
+        $this->validate($request, [
+            /*'no_rm' => 'required|unique:pasien,no_rm',*/
+            'nama' => 'required|string|max:30',
+            'id_gender' => 'required',
+            'id_status_kawin' => 'required',
+            'id_pekerjaan' => 'required',
+            'id_pendidikan' => 'required',
+            'id_pasien_tp' => 'required'
+        ]);
+
+        date_default_timezone_set('Asia/Jakarta');
+        $tgl = $request->tgl_lahir;
+        $tgl = implode("-", array_reverse(explode("/", $tgl)));
+        $usia = date_diff(date_create($tgl), date_create('now'))->y;
+        
+        $pasien = new pasien;
+            $pasien->no_rm = $request->no_rm;
+            $pasien->nama = ucwords($request->nama);
+            $pasien->id_gender = $request->id_gender;
+            $pasien->tgl_lahir = $tgl;
+            $pasien->usia = $usia;
+            $pasien->alamat = ucwords($request->alamat);
+            $pasien->no_telp = $request->no_telp;
+            $pasien->id_pekerjaan = $request->id_pekerjaan;
+            $pasien->id_pendidikan = $request->id_pendidikan;
+            $pasien->id_status_kawin = $request->id_status_kawin;
+            $pasien->id_gol_darah = '5'; //lain-lain(belum di-set)
+            $pasien->id_pasien_tp = $request->id_pasien_tp;
+            $pasien->nm_wali = ucwords($request->nm_wali);
+            $pasien->no_ktp = $request->no_ktp;
+            $pasien->no_bpjs = $request->no_bpjs;
+            $pasien->update();
     }
 
     /**
@@ -115,22 +174,23 @@ class PasienController extends Controller
     }
 
     public function dataTable(){
-        $pasien = DB::table('pasien')
-                     ->join('sex', 'pasien.id_sex', '=', 'sex.id')
+        $model = DB::table('pasien')
+                     ->join('gender', 'pasien.id_gender', '=', 'gender.id')
                      ->select('pasien.id',
                               'pasien.no_rm', 
                               'pasien.nama', 
-                              'sex.nama', 
+                              'gender.nama as jk', 
                               'pasien.tgl_lahir', 
                               'pasien.usia', 
-                              'pasien.alamat');
+                              'pasien.alamat')
+                     ->orderby('pasien.created_at', 'DESC');
 
-        return DataTables::of($pasien)
-            ->addColumn('action', function($pasien){
+        return DataTables::of($model)
+            ->addColumn('action', function($model){
                 return view('layouts.module.action', [
-                    'pasien' => $pasien,
-                    'url_edit' => route('pasien.edit', $pasien->id),
-                    'url_destroy' => route('pasien.destroy', $pasien->id)
+                    'model' => $model,
+                    'url_edit' => route('pasien.edit', $model->id),
+                    'url_destroy' => route('pasien.destroy', $model->id)
                 ]);
             })
             ->addIndexColumn()

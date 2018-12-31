@@ -16,7 +16,10 @@ class CreateDoktersTable extends Migration
         Schema::create('dokter', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
+            $table->string('id_gender');
             $table->text('alamat')->nullable();
+            $table->date('tgl_lahir')->nullable();
+            $table->integer('usia')->nullable();
             $table->string('no_telp')->nullable();
             $table->integer('id_poli');
             $table->integer('id_spesialis');

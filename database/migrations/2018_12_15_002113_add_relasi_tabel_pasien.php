@@ -15,8 +15,8 @@ class AddRelasiTabelPasien extends Migration
     {
         //relasi jenis kelamin
         Schema::table('pasien', function (Blueprint $table) {
-            $table->integer('id_sex')->unsigned()->change();
-            $table->foreign('id_sex')->references('id')->on('sex')
+            $table->integer('id_gender')->unsigned()->change();
+            $table->foreign('id_gender')->references('id')->on('gender')
                     ->onUpdate('cascade')->onDelete('cascade');
         });
 
@@ -65,13 +65,13 @@ class AddRelasiTabelPasien extends Migration
     {
         //jenis kelamin
         Schema::table('pasien', function(Blueprint $table) {
-            $table->dropForeign('pasien_id_sex_foreign');
+            $table->dropForeign('pasien_id_gender_foreign');
         });
         Schema::table('pasien', function(Blueprint $table) {
-            $table->dropIndex('pasien_id_sex_foreign');
+            $table->dropIndex('pasien_id_gender_foreign');
         });
         Schema::table('pasien', function(Blueprint $table) {
-            $table->integer('id_sex')->change();
+            $table->integer('id_gender')->change();
         });
 
         //pekerjaan

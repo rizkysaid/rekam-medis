@@ -21,7 +21,7 @@ class TabelPasienSeeder extends Seeder
         	DB::table('pasien')->insert([
         		'no_rm' => $faker->unique()->numberBetween($min = 666000, $max = 666015),
         		'nama' => $faker->name,
-        		'id_sex' => $faker->numberBetween($min=1, $max=2),
+        		'id_gender' => $faker->numberBetween($min=1, $max=2),
         		'tgl_lahir' => $faker->dateTimeThisCentury()->format('Y-m-d'),
         		'tgl_daftar' => $faker->dateTime($max = 'now', $timezone = null),
         		'usia' => $faker->numberBetween($min=10, $max=65),
@@ -34,7 +34,8 @@ class TabelPasienSeeder extends Seeder
         		'id_pasien_tp' => $faker->numberBetween($min=1, $max=2),
         		'nm_wali' => $faker->name,
         		'no_ktp' => $faker->ean13,
-        		'no_bpjs' => $faker->isbn13
+        		'no_bpjs' => $faker->isbn13,
+                'created_at' => $faker->dateTime($max = 'now', $timezone = null)
         	]);
         }
     }

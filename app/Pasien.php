@@ -8,11 +8,13 @@ class Pasien extends Model
 {
     protected $table = 'pasien';
 
+    public $timestamps = true;
+
     protected $fillable = [
     	'id',
     	'no_rm',
     	'nama',
-    	'id_sex',
+    	'id_gender',
     	'tgl_lahir',
     	'tgl_daftar',
     	'usia',
@@ -29,4 +31,20 @@ class Pasien extends Model
     	'created_at',
     	'updated_at',
     ];
+
+    public function gender(){
+        return $this->belongsTo(Gender::class);
+    }
+    public function pekerjaan(){
+        return $this->belongsTo(Pekerjaan::class);
+    }
+    public function pendidikan(){
+        return $this->belongsTo(Pendidikan::class);
+    }
+    public function status_kawin(){
+        return $this->belongsTo(Status_kawin::class);
+    }
+    public function pasien_tp(){
+        return $this->belongsTo(Pasien_tp::class);
+    }
 }

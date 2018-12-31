@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sex extends Model
+class Gender extends Model
 {
-    protected $table = 'sex';
+    protected $table = 'gender';
 /*
 	public function getFullNameAttribute(){
 		return $this->id.' '.$this->detail_sex; 

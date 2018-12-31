@@ -55,7 +55,6 @@
                                     </thead>
                                     <tbody>
 
-
                                     </tbody>
                                 </table>
                             </div>
@@ -97,32 +96,36 @@
             ajax: "{{ route('tabel.pasien') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'id'},
-                {data: 'no_rm', name: 'no_rm'},
-                {data: 'nm_pasien', name: 'nm_pasien', width: '20%'},
-                {data: 'nm_sex', name: 'nm_sex'},
-                {data: 'tgl_lahir', name: 'tgl_lahir'},
+                {data: 'no_rm', name: 'no_rm', width: '10%'},
+                {data: 'nama', name: 'nama', width: '20%'},
+                {data: 'jk', name: 'jk', width:'5%'},
+                {data: 'tgl_lahir', name: 'tgl_lahir', width: '15%'},
                 {data: 'usia', name: 'usia', width:'5%'},
                 {data: 'alamat', name: 'alamat'},
                 {data: 'action', name: 'action'}
             ],
             columnDefs: [
                 {
+                    //id
                     "targets" : [0],
                     "visible" : false,
                     "searchable" : false
                 },
                 {
+                    //jk
                     "targets" : [3],
                     "searchable" : false,
                     "className" : 'dt-body-center'
                 },
                 {
+                    //tgl_lahir
                     "targets" : [4],
-                    "render": $.fn.dataTable.render.moment( 'D MMM YYYY' )
+                    render: $.fn.dataTable.render.moment('DD-MM-YYYY' )  
                 },
                 {
+                    //alamat
                     "targets" : [6],
-                    "width" : "40%"
+                    "width"   : '40%'
                 }
             ]
         });

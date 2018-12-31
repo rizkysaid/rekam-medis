@@ -28,7 +28,7 @@
     <div class="form-group row">
             {!! Form::label('tgl_lahir', 'Tanggal Lahir', ['class' => 'control-label col-sm-3 col-form-label']) !!}
             <div class="col-sm-9">  
-                {!! Form::text('tgl_lahir', null, ['class' => 'form-control', 'id'=>'tgl_lahir', 'data-inputmask' => "'alias':'dd/mm/yyyy'", 'data-mask']) !!}    
+                {!! Form::text('tgl_lahir', date('d-m-Y', strtotime($model->tgl_lahir)), ['class' => 'form-control', 'id'=>'tgl_lahir', 'data-inputmask' => "'alias':'dd/mm/yyyy'", 'data-mask']) !!}    
             </div>
         </div>
 

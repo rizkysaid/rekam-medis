@@ -30,15 +30,19 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker-bs3.css') }}">
     <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
-    <!-- Google Font: Source Sans Pro -->
+    <!-- <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+     --><!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="{{ asset('dist/css/google_font_api.css') }}">
     <!-- datatable -->
    <!--  <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap4.min.css') }}">
     --> 
-    <link rel="stylesheet" href="{{ asset('plugins/datatables/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap4.min.css') }}">
+
 
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2-bootstrap4.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2-bootstrap4.min.css') }}">
 
     @yield('css')
     
@@ -76,7 +80,8 @@
 <!-- jQuery -->
 
  <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
- <script src="{{ asset('plugins/jquery/jquery.js') }}"></script>
+<!--  <script src="{{ asset('plugins/jquery/jquery.js') }}"></script> -->
+ <script src="{{ asset('plugins/datatables/jquery-3.3.1.js') }}"></script>
 <!-- 
 <script>
   $.widget.bridge('uibutton', $.ui.button)
@@ -85,28 +90,47 @@
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
 <!-- datepicker -->
-<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 <!-- Bootstrap WYSIHTML5 -->
-<script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
+<!-- <script src="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+ --><!-- AdminLTE App -->
+<script src="{{ asset('dist/js/adminlte.js') }}"></script>
 <!-- datatables -->
-<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<!-- <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script> -->
+<script src="{{ asset('plugins/datatables/jquery.dataTables4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
 <script src="{{ asset('plugins/datatables/datetime.js') }}"></script>
 
 <script src="{{ asset('plugins/select2/select2.min.js') }}"></script>
 <script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
+<script src="{{ asset('plugins/input-mask/inputmask.js') }}"></script>
+<script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
+<script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+<script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
 
 @stack('scripts')
 
 <script>
-  $('.select2').select2({
-    dropdownParent: $('#modal')
-  });
+  $(document).on("ajaxComplete", function(){
+    $('#tgl_lahir').inputmask('99/99/9999', { 'placeholder': 'dd/mm/yyyy' });
+    $('[data-mask]').inputmask();
 
+    $('#tgl_lahir').datepicker({
+      lang:'id',
+      timepicker:true,
+      format:'dd/mm/yyyy'
+    });
+
+    $('.select2').select2({
+      dropdownParent: $('#modal'),
+      theme: "bootstrap4"
+    });
+
+  });
 </script>
 
 </body>

@@ -45,6 +45,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Nama Dokter</th>
+                                            <th class="text-center">L/P</th>
                                             <th class="text-center">Alamat</th>
                                             <th class="text-center">No. Telepon</th>
                                             <th class="text-center">Poli</th>
@@ -96,6 +97,7 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'id'},
                 {data: 'nama', name: 'nama', width:'20%'},
+                {data: 'gender', name: 'gender', width:'5%', searchable:false},
                 {data: 'alamat', name: 'alamat', width:'30%'},
                 {data: 'no_telp', name: 'no_telp'},
                 {data: 'nama_poli', name: 'nama_poli', searchable:false},

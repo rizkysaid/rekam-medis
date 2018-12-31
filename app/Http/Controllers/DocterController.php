@@ -8,6 +8,7 @@ use DB;
 use App\Dokter;
 use App\Poli;
 use App\Spesialis;
+use App\Gender;
 
 class DocterController extends Controller
 {
@@ -29,9 +30,10 @@ class DocterController extends Controller
     public function create()
     {
         $model = new Dokter();
+        $gender = Gender::pluck('detail_gender', 'id');
         $poli = Poli::pluck('nama', 'id');
         $spesialis = Spesialis::pluck('nama', 'id');
-        return view('dokter.form', compact('model', 'poli', 'spesialis'));
+        return view('dokter.form', compact('model', 'gender', 'poli', 'spesialis'));
         //dd($model->exists);
 
     }
@@ -46,12 +48,32 @@ class DocterController extends Controller
     {
         $this->validate($request, [
             'nama' => 'required|string|max:30',
+            'id_gender' => 'required',
             'id_poli' => 'required',
             'id_spesialis' => 'required'
         ]);
 
-        $dokter = Dokter::create($request->all());
+        date_default_timezone_set('Asia/Jakarta');
+        $tgl = $request->tgl_lahir;
+        $tgl = implode("-", array_reverse(explode("/", $tgl)));
+
+        $usia = date_diff(date_create($tgl), date_create('now'))->y;
+        
+        $dokter = new Dokter;
+            $dokter->nama = $request->nama;
+            $dokter->id_gender = $request->id_gender;
+            $dokter->alamat = $request->alamat;
+            $dokter->tgl_lahir = $tgl;
+            $dokter->usia = $usia;
+            $dokter->no_telp = $request->no_telp;
+            $dokter->id_poli = $request->id_poli;
+            $dokter->id_spesialis = $request->id_spesialis;
+            $dokter->save();
+        
         return $dokter;
+
+        //dd($tgl);
+
     }
 
     /**
@@ -75,9 +97,10 @@ class DocterController extends Controller
     {
         //$dokter = Dokter::findOrFail($id);
         $model = Dokter::with('poli', 'spesialis')->findOrFail($id);
+        $gender = Gender::pluck('detail_gender', 'id');
         $poli = Poli::pluck('nama', 'id');
         $spesialis = Spesialis::pluck('nama', 'id');
-        return view('dokter.form', compact('model', 'poli', 'spesialis'));
+        return view('dokter.edit_form', compact('model', 'gender', 'poli', 'spesialis'));
         //dd($model);
     }
 
@@ -92,12 +115,27 @@ class DocterController extends Controller
     {
         $this->validate($request, [
             'nama' => 'required|string|max:30',
+            'id_gender' => 'required',
             'id_poli' => 'required',
             'id_spesialis' => 'required'
         ]);
 
-        $dokter = Dokter::findOrFail($id);
-        $dokter->update($request->all());
+        $tgl = $request->tgl_lahir;
+        $tgl = implode("-", array_reverse(explode("/", $tgl)));
+
+        $usia = date_diff(date_create($tgl), date_create('now'))->y;
+        
+        $dokter = new Dokter;
+            $dokter->nama = $request->nama;
+            $dokter->id_gender = $request->id_gender;
+            $dokter->alamat = $request->alamat;
+            $dokter->tgl_lahir = $tgl;
+            $dokter->usia = $usia;
+            $dokter->no_telp = $request->no_telp;
+            $dokter->id_poli = $request->id_poli;
+            $dokter->id_spesialis = $request->id_spesialis;
+            $dokter->update();
+        
     }
 
     /**
@@ -114,15 +152,17 @@ class DocterController extends Controller
 
     public function dataTable(){
         $model = DB::table('dokter')
+                    ->join('gender', 'dokter.id_gender', '=', 'gender.id')
                     ->join('poli', 'dokter.id_poli', '=', 'poli.id')
                     ->join('spesialis', 'dokter.id_spesialis', '=', 'spesialis.id')
                     ->select('dokter.id', 
-                             'dokter.nama', 
+                             'dokter.nama',
+                             'gender.nama as gender', 
                              'dokter.alamat', 
                              'dokter.no_telp', 
                              'poli.nama as nama_poli', 
                              'spesialis.nama as nama_spesialis')
-                    ->orderby('dokter.nama', 'ASC');
+                    ->orderby('dokter.created_at', 'DESC');
 
         return DataTables::of($model)
             ->addColumn('action', function($model){
@@ -135,6 +175,8 @@ class DocterController extends Controller
             ->addIndexColumn()
             ->rawColumns(['action'])
             ->make(true);
+
+            //dd($model);
 
     }
 }
