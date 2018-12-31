@@ -108,6 +108,7 @@ class PasienController extends Controller
     public function edit($id)
     {
         $model = Pasien::with('gender', 'pekerjaan', 'pendidikan', 'status_kawin', 'pasien_tp')->findOrFail($id);
+
         $jk = Gender::pluck('detail_gender', 'id');
         $pekerjaan = Pekerjaan::pluck('nama', 'id');
         $pendidikan = Pendidikan::pluck('nama', 'id');
@@ -143,7 +144,7 @@ class PasienController extends Controller
         $tgl = implode("-", array_reverse(explode("/", $tgl)));
         $usia = date_diff(date_create($tgl), date_create('now'))->y;
         
-        $pasien = new pasien;
+        $pasien = Pasien::findOrFail($id);
             $pasien->no_rm = $request->no_rm;
             $pasien->nama = ucwords($request->nama);
             $pasien->id_gender = $request->id_gender;
@@ -159,7 +160,7 @@ class PasienController extends Controller
             $pasien->nm_wali = ucwords($request->nm_wali);
             $pasien->no_ktp = $request->no_ktp;
             $pasien->no_bpjs = $request->no_bpjs;
-            $pasien->update();
+        $pasien->update();
     }
 
     /**
@@ -170,7 +171,8 @@ class PasienController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pasien = Pasien::findOrFail($id);
+        $pasien->delete();
     }
 
     public function dataTable(){

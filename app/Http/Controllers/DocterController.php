@@ -125,7 +125,7 @@ class DocterController extends Controller
 
         $usia = date_diff(date_create($tgl), date_create('now'))->y;
         
-        $dokter = new Dokter;
+        $dokter = Dokter::findOrFail($id);
             $dokter->nama = $request->nama;
             $dokter->id_gender = $request->id_gender;
             $dokter->alamat = $request->alamat;
@@ -148,6 +148,7 @@ class DocterController extends Controller
     {
         $dokter = Dokter::findOrFail($id);
         $dokter->delete();
+        
     }
 
     public function dataTable(){
