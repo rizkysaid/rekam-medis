@@ -12,8 +12,10 @@
 */
 
 Route::get('/', function () {
-    return redirect('dokter');
+    return redirect('dashboard');
 });
+
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::resource('/pasien', 'PasienController');
 Route::get('/tabel/pasien/', 'PasienController@dataTable')->name('tabel.pasien');
