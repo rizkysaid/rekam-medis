@@ -33,7 +33,7 @@
                                         <h3 class="card-title">List Dokter</h3>
                                     </div>
                                     <div class="col-sm-6">
-                                        <a href="{{ route('dokter.create') }}" class="btn btn-sm btn-success pull-right modal-show" title="Tambah dokter"><i class="fa fa-plus"></i> Tambah</a>
+                                        <a href="{{ route('dokter.create') }}" class="btn btn-sm btn-info pull-right modal-show" title="Tambah dokter"><i class="fa fa-plus"></i> Tambah</a>
                                     </div>
                                         
                                 </div>
@@ -41,7 +41,7 @@
                             <div class="card-body">
 
                                 <table id="datatable" class="table table-hover table-striped" style="width:100%">
-                                    <thead class="bg-success">
+                                    <thead class="bg-info">
                                         <tr>
                                             <th>#</th>
                                             <th>Nama Dokter</th>
@@ -80,7 +80,7 @@
                 "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
                 "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
                 "sInfoPostFix":  "",
-                "sSearch":       "Cari:",
+                "sSearch":       "Cari : ",
                 "sUrl":          "",
                 "oPaginate": {
                     "sFirst":    "Pertama",

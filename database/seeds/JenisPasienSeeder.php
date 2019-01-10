@@ -17,8 +17,8 @@ class JenisPasienSeeder extends Seeder
         DB::table('pasien_tp')->delete();
 
         $pasien_tp = array(
-        	array('nama' => 'UMUM', 'created_at'=>DB::raw('NOW()')),
-        	array('nama' => 'BPJS', 'created_at'=>DB::raw('NOW()')),
+        	array('nama' => 'Umum', 'created_at'=>DB::raw('NOW()')),
+        	array('nama' => 'Jaminan', 'created_at'=>DB::raw('NOW()')),
         	array('nama' => 'Lain-lain', 'created_at'=>DB::raw('NOW()'))
         );
 

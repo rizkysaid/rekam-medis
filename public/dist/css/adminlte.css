@@ -173,7 +173,7 @@ a {
 }
 
 a:hover {
-  color: #0056b3;
+  color: #0056b3; 
   text-decoration: none;
 }
 
@@ -13053,3 +13053,7 @@ a.text-muted:hover {
 }
 
 /*# sourceMappingURL=adminlte.css.map */
+
+.nav li.active {
+  border-color: #e9ecef #e9ecef #dee2e6;
+}

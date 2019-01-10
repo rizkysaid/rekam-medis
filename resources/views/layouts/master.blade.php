@@ -18,7 +18,7 @@
   	<!-- Ionicons -->
   	<link rel="stylesheet" href="{{ asset('dist/css/ionicons.min.css') }}">
   	<!-- Theme style -->
-  	<link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+  	<link rel="stylesheet" href="{{ asset('dist/css/adminlte.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('plugins/iCheck/flat/blue.css') }}">
     <!-- Moris chart -->
@@ -44,13 +44,15 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2-bootstrap4.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2-bootstrap4.min.css') }}">
 
+    @stack('css')
+
     @yield('css')
     
 
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <nav class="main-header navbar navbar-expand bg-success navbar-light border-bottom">
+        <nav class="main-header navbar navbar-expand bg-info navbar-light border-bottom">
             <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
@@ -116,19 +118,33 @@
 
 <script>
   $(document).on("ajaxComplete", function(){
+   
     $('#tgl_lahir').inputmask('99/99/9999', { 'placeholder': 'dd/mm/yyyy' });
+    $('#tgl_daftar').inputmask('99/99/9999', { 'placeholder': 'dd/mm/yyyy' });
     $('[data-mask]').inputmask();
 
     $('#tgl_lahir').datepicker({
       lang:'id',
       timepicker:true,
-      format:'dd/mm/yyyy'
+      format:'dd/mm/yyyy',
+      todayHighlight: true,
+      autoclose: true
+    });
+
+    $('#tgl_daftar').datepicker({
+      lang:'id',
+      timepicker:true,
+      format:'dd/mm/yyyy',
+      todayHighlight: true,
+      autoclose: true
     });
 
     $('.select2').select2({
       dropdownParent: $('#modal'),
       theme: "bootstrap4"
     });
+
+    $('.nav a[href~="' + location.href + '"]').parents('li').addClass('active');
 
   });
 </script>

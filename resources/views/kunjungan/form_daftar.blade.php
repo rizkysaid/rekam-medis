@@ -1,11 +1,11 @@
 {!!
 	Form::model($model, [
-		'route' => $model->exists ? ['dokter.update', $model->id] : 'dokter.store',
+		'route' => $model->exists ? ['kunjungan.update', $model->id] : 'kunjungan.store',
 		'method' => $model->exists ? 'PUT' : 'POST'
 	])
 !!}	
 	<div class="form-group row">
-        {!! Form::label('nama', 'Nama Dokter', ['class' => 'control-label col-sm-3 col-form-label']) !!}
+        {!! Form::label('nama', 'Nama kunjungan', ['class' => 'control-label col-sm-3 col-form-label']) !!}
         <div class="col-sm-9">
         {!! Form::text('nama', null, ['class' => 'form-control', 'id' => 'nama', 'autofocus' => 'autofocus']) !!}
         </div>

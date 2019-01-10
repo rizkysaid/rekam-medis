@@ -15,8 +15,8 @@ class CreateKunjungansTable extends Migration
     {
         Schema::create('kunjungan', function (Blueprint $table) {
             $table->increments('id');
+            $table->date('tgl_daftar');
             $table->integer('id_pasien');
-            $table->integer('no_rm');
             $table->integer('id_poli');
             $table->integer('id_pasien_tp');
             $table->integer('id_status');

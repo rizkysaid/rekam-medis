@@ -189,8 +189,9 @@ class PasienController extends Controller
 
         return DataTables::of($model)
             ->addColumn('action', function($model){
-                return view('layouts.module.action', [
+                return view('pasien.action', [
                     'model' => $model,
+                    'url_daftar' => route('pendaftaran.show', $model->id),
                     'url_edit' => route('pasien.edit', $model->id),
                     'url_destroy' => route('pasien.destroy', $model->id)
                 ]);

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    <title>Manajemen Pasien</title>
+    <title>Pendaftaran</title>
 @endsection
 
 @section('content')
@@ -10,12 +10,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Manajemen Pasien</h1>
+                        <h1 class="m-0 text-dark">Pendaftaran</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><i class="fa fa-home"></i><a href="./"> Home</a></li>
-                            <li class="breadcrumb-item active">pasien</li>
+                            <li class="breadcrumb-item active">pendaftaran</li>
                         </ol>
                     </div>
                 </div>
@@ -24,18 +24,16 @@
 
         <section class="content">
             <div class="container-fluid">
+
+                <!-- Pasien terdaftar -->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header with-border">
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <h3 class="card-title">List pasien</h3>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <a href="{{ route('pasien.create') }}" class="btn btn-sm btn-info pull-right modal-show" title="Tambah pasien"><i class="fa fa-plus"></i> Tambah</a>
-                                    </div>
-                                        
+                                    <div class="col-md-12">
+                                        <h3 class="card-title">List Pasien Terdaftar</h3>
+                                    </div>                                        
                                 </div>
                             </div>
                             <div class="card-body">
@@ -45,11 +43,10 @@
                                         <tr>
                                             <th>#</th>
                                             <th>No RM</th>
-                                            <th>Nama Lengkap</th>
-                                            <th>L/P</th>
-                                            <th class="text-center">TTL</th>
-                                            <th>Usia</th>
-                                            <th class="text-center">Alamat</th>
+                                            <th>Nama Pasien</th>
+                                            <th>Poli</th>
+                                            <th>Tanggal Daftar</th>
+                                            <th>Tipe</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -70,9 +67,12 @@
     
     <script>
 
+        //list pasien terdaftar
         $('#datatable').DataTable({
+            "info": false,
+            "paging": true,
             language: {
-                "sEmptyTable":   "Tidak ada data yang tersedia pada tabel ini",
+                "sEmptyTable":   "Belum ada pasien yang terdaftar hari ini!",
                 "sProcessing":   "Sedang memproses...",
                 "sLengthMenu":   "Menampilkan _MENU_ entri",
                 "sZeroRecords":  "Tidak ditemukan data yang sesuai",
@@ -80,7 +80,7 @@
                 "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
                 "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
                 "sInfoPostFix":  "",
-                "sSearch":       "Cari : ",
+                "sSearch":       "Cari Pasien : ",
                 "sUrl":          "",
                 "oPaginate": {
                     "sFirst":    "Pertama",
@@ -93,16 +93,15 @@
             responsive: true,
             processing: true,
             serverSide: true,
-            ajax: "{{ route('tabel.pasien') }}",
+            ajax: "{{ route('tabel.pendaftaran') }}",
             columns: [
                 {data: 'id', name: 'id'},
-                {data: 'no_rm', name: 'no_rm', width: '10%'},
-                {data: 'nama', name: 'nama', width: '20%'},
-                {data: 'jk', name: 'jk', width:'5%'},
-                {data: 'tgl_lahir', name: 'tgl_lahir', width: '15%'},
-                {data: 'usia', name: 'usia', width:'5%'},
-                {data: 'alamat', name: 'alamat'},
-                {data: 'action', name: 'action'}
+                {data: 'no_rm', name: 'no_rm'},
+                {data: 'nama', name: 'nama'},
+                {data: 'poli', name: 'poli'},
+                {data: 'tgl_daftar', name: 'tgl_daftar'},
+                {data: 'tipe', name: 'tipe'},
+                {data: 'action', name: 'action', searchable:false}
             ],
             columnDefs: [
                 {
@@ -121,22 +120,9 @@
                     //tgl_lahir
                     "targets" : [4],
                     render: $.fn.dataTable.render.moment('DD-MM-YYYY' )  
-                },
-                {
-                    //alamat
-                    "targets" : [6],
-                    "width"   : '40%'
                 }
             ]
         });
-
-        var table = $('#datatable').DataTable();
-
-        $('#datatable tbody').on('dblclick', 'tr', function(){
-            selectedIndex = table.row(this).data()[0];
-            alert(selectedIndex);
-        });
-
 
     </script>
 

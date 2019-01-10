@@ -21,7 +21,7 @@
         <div class="form-group row">
             {!! Form::label('jk', 'Jenis Kelamin', ['class' => 'control-label col-sm-3 col-form-label']) !!}
             <div class="col-sm-9">
-                {!! Form::select('id_gender', $jk, null, ['class' => 'form-control select2', 'id'=>'id_gender', 'placeholder'=>'Pilih Jenis Kelamin..']); !!}
+                {!! Form::select('id_gender', $jk, null, ['class' => 'form-control select2 required', 'id'=>'id_gender', 'placeholder'=>'Pilih Jenis Kelamin..']); !!}
             </div>
         </div>
         <div class="form-group row">
@@ -39,7 +39,7 @@
          <div class="form-group row">
                 {!! Form::label('st_kawin', 'Status Kawin', ['class' => 'control-label col-sm-3 col-form-label']) !!}
                 <div class="col-sm-9">
-                    {!! Form::select('id_status_kawin', $st_kawin, null, ['class' => 'form-control select2', 'id'=>'id_status_kawin', 'placeholder'=>'Pilih Status..']); !!}                
+                    {!! Form::select('id_status_kawin', $st_kawin, null, ['class' => 'form-control select2 required', 'id'=>'id_status_kawin', 'placeholder'=>'Pilih Status..']); !!}                
                 </div>
             </div>
     </div>
@@ -47,13 +47,13 @@
         <div class="form-group row">
             {!! Form::label('pekerjaan', 'Pekerjaan', ['class' => 'control-label col-sm-3 col-form-label']) !!}
             <div class="col-sm-9">
-                {!! Form::select('id_pekerjaan', $pekerjaan, null, ['class' => 'form-control select2', 'id'=>'id_pekerjaan', 'placeholder'=>'Pilih Pekerjaan..']); !!}
+                {!! Form::select('id_pekerjaan', $pekerjaan, null, ['class' => 'form-control select2 required', 'id'=>'id_pekerjaan', 'placeholder'=>'Pilih Pekerjaan..']); !!}
             </div>
         </div>
         <div class="form-group row">
             {!! Form::label('pendidikan', 'Pendidikan', ['class' => 'control-label col-sm-3 col-form-label']) !!}
             <div class="col-sm-9">
-                {!! Form::select('id_pendidikan', $pendidikan, null, ['class' => 'form-control select2', 'id'=>'id_pendidikan', 'placeholder'=>'Pilih Pendidikan..']); !!}
+                {!! Form::select('id_pendidikan', $pendidikan, null, ['class' => 'form-control select2 required', 'id'=>'id_pendidikan', 'placeholder'=>'Pilih Pendidikan..']); !!}
             </div>
         </div>
         
@@ -75,7 +75,7 @@
         <div class="form-group row">
             {!! Form::label('pasien_tp', 'Tipe Pasien', ['class' => 'control-label col-sm-3 col-form-label']) !!}
             <div class="col-sm-9">
-                {!! Form::select('id_pasien_tp', $pasien_tp, null, ['class' => 'form-control select2', 'id'=>'id_pasien_tp', 'placeholder'=>'Pilih Tipe Pasien..']); !!}
+                {!! Form::select('id_pasien_tp', $pasien_tp, null, ['class' => 'form-control select2 required', 'id'=>'id_pasien_tp', 'placeholder'=>'Pilih Tipe Pasien..']); !!}
             </div>
         </div>
                 

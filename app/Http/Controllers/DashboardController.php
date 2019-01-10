@@ -10,7 +10,8 @@ class DashboardController extends Controller
     public function index(){
     	$pasien_count = DB::table('pasien')->count();
     	$dokter_count = DB::table('dokter')->count();
-    	return view('layouts.dashboard', compact('pasien_count', 'dokter_count'));
+    	$kunjungan_count = DB::table('kunjungan')->count();
+    	return view('layouts.dashboard', compact('pasien_count', 'dokter_count', 'kunjungan_count'));
 
     }
 }

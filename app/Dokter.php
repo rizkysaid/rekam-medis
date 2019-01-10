@@ -33,7 +33,7 @@ class Dokter extends Model
     }
 
     public function spesialis(){
-        return $this->belongsTo(Poli::class);
+        return $this->belongsTo(Spesialis::class);
     }    
 
 }

@@ -17,8 +17,18 @@ Route::get('/', function () {
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
+
 Route::resource('/pasien', 'PasienController');
 Route::get('/tabel/pasien/', 'PasienController@dataTable')->name('tabel.pasien');
 
+
 Route::resource('/dokter', 'DocterController');
 Route::get('/tabel/dokter/', 'DocterController@dataTable')->name('tabel.dokter');
+
+
+Route::resource('/pendaftaran', 'PendaftaranController');
+Route::get('/pendaftaran', 'PendaftaranController@index')->name('pendaftaran');
+Route::get('/tabel/pendaftaran', 'PendaftaranController@tblPendaftaran')->name('tabel.pendaftaran');
+
+
+Route::resource('/pemeriksaan', 'PemeriksaanController');

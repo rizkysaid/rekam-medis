@@ -17,9 +17,9 @@ class TabelPasienSeeder extends Seeder
         DB::table('pasien')->delete();
 
         $faker = Faker::create('id_ID');
-        foreach(range(0,15) as $i){
+        foreach(range(1, 100) as $i){
         	DB::table('pasien')->insert([
-        		'no_rm' => $faker->unique()->numberBetween($min = 666000, $max = 666015),
+        		'no_rm' => $faker->unique()->numberBetween($min = 666000, $max = 666100),
         		'nama' => $faker->name,
         		'id_gender' => $faker->numberBetween($min=1, $max=2),
         		'tgl_lahir' => $faker->dateTimeThisCentury()->format('Y-m-d'),
