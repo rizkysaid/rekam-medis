@@ -50,9 +50,9 @@
                                             <th>#</th>
                                             <th>No RM</th>
                                             <th>Nama Pasien</th>
-                                            <th>Poli</th>
+                                            <th class="select-filter">Poli</th>
                                             <th>Tanggal Daftar</th>
-                                            <th>Jaminan</th>
+                                            <th class="select-filter">Jaminan</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -137,18 +137,36 @@
                     "targets" : [4],
                     render: $.fn.dataTable.render.moment('DD-MM-YYYY' )  
                 }
-            ]
+            ],
 
-
+            initComplete: function () {
+            this.api().columns('.select-filter').every( function () {
+                var column = this;
+                var select = $('<select class="form-control select"><option value="" selected>Cari </option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                        } );
+     
+                    column.data().unique().sort().each( function ( d, j ) {
+                        select.append( '<option value="'+d+'">'+d+'</option>' )
+                    });
+                });
+            }
 
         });
 
         $('#datatable tfoot th').each( function () {
-        var title = $(this).text();
-        if (title === "Tanggal Daftar") {
-            $(this).html( '<input type="text" id="tgl_cari" placeholder="Cari '+title+'" class="form-control"/>' );
-            }
-            else {
+            var title = $(this).text();
+            if (title === "Tanggal Daftar") {
+                $(this).html( '<input type="text" id="tgl_cari" placeholder="Cari '+title+'" class="form-control"/>' );
+            }else{
                 $(this).html( '<input type="text" placeholder="Cari '+title+'" class="form-control"/>' );
             }
         });
