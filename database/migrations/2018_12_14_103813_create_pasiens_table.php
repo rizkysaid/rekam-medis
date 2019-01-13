@@ -19,7 +19,6 @@ class CreatePasiensTable extends Migration
             $table->string('nama')->nullable();
             $table->integer('id_gender');
             $table->date('tgl_lahir')->nullable();
-            $table->date('tgl_daftar')->nullable();
             $table->integer('usia')->nullable();
             $table->text('alamat')->nullable();
             $table->string('no_telp')->nullable();

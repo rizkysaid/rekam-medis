@@ -26,8 +26,8 @@ Route::resource('/dokter', 'DocterController');
 Route::get('/tabel/dokter/', 'DocterController@dataTable')->name('tabel.dokter');
 
 
-Route::resource('/pendaftaran', 'PendaftaranController');
-Route::get('/pendaftaran', 'PendaftaranController@index')->name('pendaftaran');
+Route::resource('/pendaftaran', 'PendaftaranController');/*
+Route::get('/pendaftaran', 'PendaftaranController@index')->name('pendaftaran');*/
 Route::get('/tabel/pendaftaran', 'PendaftaranController@tblPendaftaran')->name('tabel.pendaftaran');
 
 

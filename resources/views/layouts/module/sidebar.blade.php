@@ -38,7 +38,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('pendaftaran') }}" class="nav-link">
+                    <a href="{{ route('pendaftaran.index') }}" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
                         <p>Pendaftaran</p>
                     </a>

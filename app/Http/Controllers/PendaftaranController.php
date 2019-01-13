@@ -31,7 +31,8 @@ class PendaftaranController extends Controller
                             'poli.nama as poli',
                             'pasien_tp.nama as tipe',
                             'status_proses.nama as status')
-                   ->orderby('kunjungan.tgl_daftar', 'DESC');
+                   ->orderby('kunjungan.tgl_daftar', 'DESC')
+                   ->orderby('kunjungan.created_at', 'DESC');
 
       return DataTables::of($model)
           ->addColumn('action', function($model){

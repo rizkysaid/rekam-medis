@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as faker;
+use Carbon\Carbon;
 
 class KunjunganSeeder extends Seeder
 {
@@ -23,9 +24,9 @@ class KunjunganSeeder extends Seeder
                 'id_pasien' => $faker->numberBetween($min=1, $max=100),
         		'id_poli' => $faker->numberBetween($min=1, $max=5),
         		'id_pasien_tp' => $faker->numberBetween($min=1, $max=2),
-        		'id_status' => $faker->numberBetween($min=1, $max=2),
-                'created_at' => $faker->dateTime($max = 'now', $timezone = null),
-                'updated_at' => $faker->dateTime($max = 'now', $timezone = null)
+        		'id_status' => '2',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
         	]);
         }
     }

@@ -16,7 +16,6 @@ class Pasien extends Model
     	'nama',
     	'id_gender',
     	'tgl_lahir',
-    	'tgl_daftar',
     	'usia',
     	'alamat',
     	'no_telp',

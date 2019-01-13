@@ -4,6 +4,12 @@
     <title>Pendaftaran</title>
 @endsection
 
+@push('css')
+    tfoot {
+        display: table-header-group;
+    }
+@endpush
+
 @section('content')
     <div class="content-wrapper">
         <div class="content-header">
@@ -38,7 +44,7 @@
                             </div>
                             <div class="card-body">
 
-                                <table id="datatable" class="table table-hover table-striped" style="width:100%">
+                                <table id="datatable" class="table table-hover table-striped display nowrap" style="width:100%">
                                     <thead class="bg-info">
                                         <tr>
                                             <th>#</th>
@@ -46,10 +52,22 @@
                                             <th>Nama Pasien</th>
                                             <th>Poli</th>
                                             <th>Tanggal Daftar</th>
-                                            <th>Tipe</th>
+                                            <th>Jaminan</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
+
+                                    <tfoot>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>No RM</th>
+                                            <th>Nama Pasien</th>
+                                            <th>Poli</th>
+                                            <th>Tanggal Daftar</th>
+                                            <th>Jaminan</th>
+                                        </tr>
+                                    </tfoot>
+
                                     <tbody>
 
                                     </tbody>
@@ -67,6 +85,7 @@
     
     <script>
 
+
         //list pasien terdaftar
         $('#datatable').DataTable({
             "info": false,
@@ -74,19 +93,19 @@
             language: {
                 "sEmptyTable":   "Belum ada pasien yang terdaftar hari ini!",
                 "sProcessing":   "Sedang memproses...",
-                "sLengthMenu":   "Menampilkan _MENU_ entri",
+                "sLengthMenu":   "Menampilkan _MENU_ pasien",
                 "sZeroRecords":  "Tidak ditemukan data yang sesuai",
-                "sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 entri",
-                "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+                "sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ pasien",
+                "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 pasien",
+                "sInfoFiltered": "(disaring dari _MAX_ pasien keseluruhan)",
                 "sInfoPostFix":  "",
                 "sSearch":       "Cari Pasien : ",
                 "sUrl":          "",
                 "oPaginate": {
-                    "sFirst":    "Pertama",
-                    "sPrevious": "Sebelumnya",
-                    "sNext":     "Selanjutnya",
-                    "sLast":     "Terakhir"
+                    sNext: '<i class="fa fa-forward"></i>',
+                    sPrevious: '<i class="fa fa-backward"></i>',
+                    sFirst: '<i class="fa fa-step-backward"></i>',
+                    sLast: '<i class="fa fa-step-forward"></i>'
                 }
             },
 
@@ -96,11 +115,11 @@
             ajax: "{{ route('tabel.pendaftaran') }}",
             columns: [
                 {data: 'id', name: 'id'},
-                {data: 'no_rm', name: 'no_rm'},
-                {data: 'nama', name: 'nama'},
-                {data: 'poli', name: 'poli'},
+                {data: 'no_rm', name: 'pasien.no_rm'},
+                {data: 'nama', name: 'pasien.nama'},
+                {data: 'poli', name: 'poli.nama'},
                 {data: 'tgl_daftar', name: 'tgl_daftar'},
-                {data: 'tipe', name: 'tipe'},
+                {data: 'tipe', name: 'pasien_tp.nama'},
                 {data: 'action', name: 'action', searchable:false}
             ],
             columnDefs: [
@@ -111,9 +130,6 @@
                     "searchable" : false
                 },
                 {
-                    //jk
-                    "targets" : [3],
-                    "searchable" : false,
                     "className" : 'dt-body-center'
                 },
                 {
@@ -122,8 +138,37 @@
                     render: $.fn.dataTable.render.moment('DD-MM-YYYY' )  
                 }
             ]
+
+
+
         });
 
+        $('#datatable tfoot th').each( function () {
+        var title = $(this).text();
+        if (title === "Tanggal Daftar") {
+            $(this).html( '<input type="text" id="tgl_cari" placeholder="Cari '+title+'" class="form-control"/>' );
+            }
+            else {
+                $(this).html( '<input type="text" placeholder="Cari '+title+'" class="form-control"/>' );
+            }
+        });
+     
+        // DataTable
+        var table = $('#datatable').DataTable();
+     
+        // Apply the search
+        table.columns().every( function () {
+            var that = this;
+     
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            });
+        });
+     
     </script>
 
     <script src="{{ asset('js/app.js') }}"></script>

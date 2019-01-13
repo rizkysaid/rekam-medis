@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use Carbon\Carbon;
 
 class TabelPasienSeeder extends Seeder
 {
@@ -23,7 +24,6 @@ class TabelPasienSeeder extends Seeder
         		'nama' => $faker->name,
         		'id_gender' => $faker->numberBetween($min=1, $max=2),
         		'tgl_lahir' => $faker->dateTimeThisCentury()->format('Y-m-d'),
-        		'tgl_daftar' => $faker->dateTime($max = 'now', $timezone = null),
         		'usia' => $faker->numberBetween($min=10, $max=65),
         		'alamat' => $faker->address,
         		'no_telp' => $faker->phoneNumber,
@@ -35,7 +35,8 @@ class TabelPasienSeeder extends Seeder
         		'nm_wali' => $faker->name,
         		'no_ktp' => $faker->ean13,
         		'no_bpjs' => $faker->isbn13,
-                'created_at' => $faker->dateTime($max = 'now', $timezone = null)
+                'created_at' => Carbon::now(),
+                'created_at' => Carbon::now()
         	]);
         }
     }

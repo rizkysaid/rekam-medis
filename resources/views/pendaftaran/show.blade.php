@@ -73,7 +73,7 @@
 				<div class="form-group row col-sm-12">
 					<label class="col-sm-3">Tanggal</label>
 					<div class="col-sm-9 input-group">
-						<input type="text" name="tgl_daftar" class="form-control" id="tgl_daftar" value="{{ date('d-m-Y', strtotime(now())) }}">
+						<input type="text" name="tgl_daftar" class="form-control" id="tgl_daftar" value="{{ date('d-m-Y', strtotime(Carbon::now())) }}">
 						<div class="input-group-append">
                           <span class="input-group-text fa fa-calendar"></span>
                       	</div>
@@ -86,7 +86,7 @@
 					</div>
 				</div>
 				<div class="form-group row col-sm-12">
-					<label class="col-sm-3">BPJS/Umum</label>
+					<label class="col-sm-3">Jaminan</label>
 					<div class="col-sm-9">
 						{!! Form::select('id_pasien_tp', $pasien_tp, null, ['class' => 'form-control bpjs', 'id'=>'id_pasien_tp', 'placeholder' => 'Pilih tipe...', 'autofocus'=>'true']); !!}
 					</div>

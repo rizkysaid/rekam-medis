@@ -44,7 +44,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2-bootstrap4.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2-bootstrap4.min.css') }}">
 
-    @stack('css')
+    <style type="text/css">
+      @stack('css')
+    </style>
 
     @yield('css')
     
@@ -84,11 +86,11 @@
  <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 <!--  <script src="{{ asset('plugins/jquery/jquery.js') }}"></script> -->
  <script src="{{ asset('plugins/datatables/jquery-3.3.1.js') }}"></script>
-<!-- 
-<script>
+
+<!-- <script>
   $.widget.bridge('uibutton', $.ui.button)
-</script>
- -->
+</script> -->
+
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- daterangepicker -->
@@ -135,6 +137,13 @@
       lang:'id',
       timepicker:true,
       format:'dd/mm/yyyy',
+      todayHighlight: true,
+      autoclose: true
+    });
+
+    $('#tgl_cari').datepicker({
+      format: "yyyy-mm-dd",
+      timepicker:true,
       todayHighlight: true,
       autoclose: true
     });
