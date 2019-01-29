@@ -13,10 +13,10 @@ class AddRelasiTabelTindakan extends Migration
      */
     public function up()
     {
-        //relasi pasien
+        //relasi medical_recs
         Schema::table('tindakan', function (Blueprint $table) {
-            $table->integer('id_pasien')->unsigned()->change();
-            $table->foreign('id_pasien')->references('id')->on('pasien')
+            $table->integer('id_medical_recs')->unsigned()->change();
+            $table->foreign('id_medical_recs')->references('id')->on('medical_recs')
                     ->onUpdate('cascade')->onDelete('cascade');
         });
 
@@ -36,13 +36,13 @@ class AddRelasiTabelTindakan extends Migration
     public function down()
     {
         Schema::table('tindakan', function(Blueprint $table) {
-            $table->dropForeign('tindakan_id_pasien_foreign');
+            $table->dropForeign('tindakan_id_medical_recs_foreign');
         });
         Schema::table('tindakan', function(Blueprint $table) {
-            $table->dropIndex('tindakan_id_pasien_foreign');
+            $table->dropIndex('tindakan_id_medical_recs_foreign');
         });
         Schema::table('tindakan', function(Blueprint $table) {
-            $table->integer('id_pasien')->change();
+            $table->integer('id_medical_recs')->change();
         });
 
         //detail_tindakan

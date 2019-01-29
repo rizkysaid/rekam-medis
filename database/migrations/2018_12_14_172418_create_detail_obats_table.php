@@ -16,6 +16,9 @@ class CreateDetailObatsTable extends Migration
         Schema::create('detail_obat', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
+            $table->float('harga', 8, 2);
+            $table->integer('id_tipe_obat');
+            $table->integer('stock');
             $table->timestamps();
         });
     }

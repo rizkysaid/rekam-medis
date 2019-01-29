@@ -15,6 +15,7 @@ class CreateObatsTable extends Migration
     {
         Schema::create('obat', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_medical_recs');
             $table->integer('id_detail_obat');
             $table->integer('qty');
             $table->timestamps();

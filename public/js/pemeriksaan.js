@@ -1,9 +1,3 @@
-
-//focus kolom cari pada datatable
-var table = $('#myTable').DataTable();
-$('div.dataTables_filter input', table.table().container()).focus();
-
-
 /*Tombol tambah*/
 $('body').on('click', '.modal-show', function(event){
     event.preventDefault();
@@ -244,43 +238,3 @@ $('#modal-btn-periksa').click(function (event) {
     $('#modal_periksa').modal('hide');
     
 });
-
-
-/*Tombol save diagnosa*/
-$('#btn-save-diagnosa').click(function (event) {
-
-    event.preventDefault();
-
-    var form = $('#form-diagnosa form');
-        url = form.attr('action');
-        method = form.attr('method');
-
-    form.find('.invalid-feedback').remove();
-    form.find('.form-control').removeClass('is-invalid');
-
-    $.ajax({
-        url: url,
-        method: method,
-        data: form.serialize(),
-        success: function(response){
-            form.trigger('reset');
-            $('#tabel_diagnosa').DataTable().ajax.reload();
-
-            swal({
-                icon: 'success',
-                title: 'Success!',
-                text: 'Data berhasil disimpan!'
-            });
-        },
-        error: function(xhr){
-            var res = xhr.responseJSON;
-            if($.isEmptyObject(res) == false){
-                $.each(res.errors, function(key, value){
-                    $('#' + key).addClass('is-invalid');
-                });
-            }
-            //console.log(res);
-        }
-    })
-});
-

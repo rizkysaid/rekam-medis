@@ -13,17 +13,10 @@ class AddRelasiTabelMedicalRecs extends Migration
      */
     public function up()
     {
-       //relasi pasien
-        Schema::table('medical_recs', function (Blueprint $table) {
-            $table->integer('id_pasien')->unsigned()->change();
-            $table->foreign('id_pasien')->references('id')->on('pasien')
-                    ->onUpdate('cascade')->onDelete('cascade');
-        });
-
-        //relasi diagnosa
-        Schema::table('medical_recs', function (Blueprint $table) {
-            $table->integer('id_diagnosa')->unsigned()->change();
-            $table->foreign('id_diagnosa')->references('id')->on('detail_diagnosa')
+       //relasi kunjungan
+       /* Schema::table('medical_recs', function (Blueprint $table) {
+            $table->integer('id_kunjungan')->unsigned()->change();
+            $table->foreign('id_kunjungan')->references('id')->on('kunjungan')
                     ->onUpdate('cascade')->onDelete('cascade');
         });
 
@@ -32,7 +25,7 @@ class AddRelasiTabelMedicalRecs extends Migration
             $table->integer('id_dokter')->unsigned()->change();
             $table->foreign('id_dokter')->references('id')->on('dokter')
                     ->onUpdate('cascade')->onDelete('cascade');
-        });
+        });*/
     }
 
     /**
@@ -43,27 +36,16 @@ class AddRelasiTabelMedicalRecs extends Migration
     public function down()
     {
 
-        //diagnosa
-        Schema::table('medical_recs', function(Blueprint $table) {
-            $table->dropForeign('medical_recs_id_pasien_foreign');
+        //kunjungan
+        /*Schema::table('medical_recs', function(Blueprint $table) {
+            $table->dropForeign('medical_recs_id_kunjungan_foreign');
         });
         Schema::table('medical_recs', function(Blueprint $table) {
-            $table->dropIndex('medical_recs_id_pasien_foreign');
+            $table->dropIndex('medical_recs_id_kunjungan_foreign');
         });
         Schema::table('medical_recs', function(Blueprint $table) {
-            $table->integer('id_pasien')->change();
-        });
-
-        //diagnosa
-        Schema::table('medical_recs', function(Blueprint $table) {
-            $table->dropForeign('medical_recs_id_diagnosa_foreign');
-        });
-        Schema::table('medical_recs', function(Blueprint $table) {
-            $table->dropIndex('medical_recs_id_diagnosa_foreign');
-        });
-        Schema::table('medical_recs', function(Blueprint $table) {
-            $table->integer('id_diagnosa')->change();
-        });
+            $table->integer('id_kunjungan')->change();
+        });*/
 
         //dokter
         Schema::table('medical_recs', function(Blueprint $table) {

@@ -15,8 +15,7 @@ class CreateTindakansTable extends Migration
     {
         Schema::create('tindakan', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_pasien');
-            $table->integer('no_rm');
+            $table->integer('id_medical_recs');
             $table->integer('id_detail_tindakan');
             $table->timestamps();
         });

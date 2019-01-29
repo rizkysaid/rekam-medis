@@ -10,6 +10,7 @@ use App\Poli;
 use App\Pasien_tp;
 use App\Kunjungan;
 use \Carbon\Carbon;
+use PDF;
 
 class PendaftaranController extends Controller
 {
@@ -17,7 +18,7 @@ class PendaftaranController extends Controller
     	return view('pendaftaran.index');
     }
     
-    public function tblPendaftaran(){
+    public function tblPemeriksaan(){
       //list daftar
       $model = DB::table('kunjungan')
                    ->join('pasien', 'kunjungan.id_pasien', '=', 'pasien.id')
@@ -36,11 +37,11 @@ class PendaftaranController extends Controller
 
       return DataTables::of($model)
           ->addColumn('action', function($model){
-                return view('pendaftaran.action', [
+                return view('pemeriksaan.action', [
                     'model' => $model,
-                    'url_periksa' => route('pemeriksaan.show', $model->id),
-                    'url_edit' => route('pendaftaran.edit', $model->id),
-                    'url_destroy' => route('pendaftaran.destroy', $model->id)
+                    'url_periksa' => route('diagnosa.show', $model->id),
+                    'url_edit' => route('diagnosa.edit', $model->id),
+                    'url_destroy' => route('diagnosa.destroy', $model->id)
               ]);
           })
           ->addIndexColumn()
@@ -115,6 +116,25 @@ class PendaftaranController extends Controller
     public function destroy($id){
         $kunjungan = Kunjungan::findOrFail($id);
         $kunjungan->delete();
+    }
+
+    public function laporan(){
+      $pendaftaran = DB::table('kunjungan')
+                   ->join('pasien', 'kunjungan.id_pasien', '=', 'pasien.id')
+                   ->join('poli', 'kunjungan.id_poli', '=', 'poli.id')
+                   ->join('pasien_tp', 'kunjungan.id_pasien_tp', '=', 'pasien_tp.id')
+                   ->join('status_proses', 'kunjungan.id_status', '=', 'status_proses.id')
+                   ->select('kunjungan.id',
+                            'kunjungan.tgl_daftar as tgl', 
+                            'pasien.nama as nama',
+                            'pasien.no_rm',
+                            'pasien.alamat as almt',
+                            'poli.nama as poli',
+                            'pasien_tp.nama as tipe')
+                   ->orderby('kunjungan.tgl_daftar', 'ASC')
+                   ->orderby('kunjungan.created_at', 'ASC')->limit(5)->get();
+      $pdf = PDF::loadView('pendaftaran.laporan', compact('pendaftaran'))->setPaper('A4', 'landscape');
+      return $pdf->stream();
     }
 
 }

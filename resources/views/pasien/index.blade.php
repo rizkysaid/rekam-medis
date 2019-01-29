@@ -50,7 +50,7 @@
                                             <th class="text-center">TTL</th>
                                             <th>Usia</th>
                                             <th class="text-center">Alamat</th>
-                                            <th>Action</th>
+                                            <th>Proses</th>
                                         </tr>
                                     </thead>
                                     <tbody>

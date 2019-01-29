@@ -26,9 +26,15 @@ Route::resource('/dokter', 'DocterController');
 Route::get('/tabel/dokter/', 'DocterController@dataTable')->name('tabel.dokter');
 
 
-Route::resource('/pendaftaran', 'PendaftaranController');/*
-Route::get('/pendaftaran', 'PendaftaranController@index')->name('pendaftaran');*/
-Route::get('/tabel/pendaftaran', 'PendaftaranController@tblPendaftaran')->name('tabel.pendaftaran');
-
-
+Route::resource('/pendaftaran', 'PendaftaranController');
+/*Route::get('/tabel/pendaftaran', 'PendaftaranController@tblPendaftaran')->name('tabel.pendaftaran');
+*/
 Route::resource('/pemeriksaan', 'PemeriksaanController');
+Route::get('/tabel/pemeriksaan', 'PemeriksaanController@tblpemeriksaan')->name('tabel.pemeriksaan');
+
+Route::resource('/diagnosa', 'DiagnosaController');
+Route::get('/diagnosa/{id}/get', 'DiagnosaController@tblDiagnosa')->name('tabel.diagnosa');
+
+Route::get('/laporan', 'LaporanController@index')->name('laporan.index');
+Route::get('/laporan/kunjungan', 'LaporanController@kunjungan')->name('laporan.kunjungan');
+Route::get('/laporan/print_kunjungan', 'LaporanController@print_kunjungan')->name('print.kunjungan');

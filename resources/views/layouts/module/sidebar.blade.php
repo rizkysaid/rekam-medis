@@ -38,13 +38,13 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('pendaftaran.index') }}" class="nav-link">
+                    <a href="{{ route('pasien.index', 100) }}" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
                         <p>Pendaftaran</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('pemeriksaan.index') }}" class="nav-link">
                         <i class="nav-icon fa fa-stethoscope"></i>
                         <p>Pemeriksaan</p>
                     </a>
@@ -56,27 +56,11 @@
                     </a>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ route('laporan.index') }}" class="nav-link">
                         <i class="nav-icon fa fa-bar-chart"></i>
-                        <p>Laporan
-                            <i class="right fa fa-angle-left"></i>
-                        </p>
+                        <p>Laporan</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i>
-                                <p>Pendaftaran</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fa fa-circle-o nav-icon"></i>
-                                <p>Pemeriksaan</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
    
                 <li class="nav-header">Master Data</li>

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 use DataTables;
+use DB;
+use App\Medical_rec;
+use Illuminate\Support\Facades\URL;
 
-class PemeriksaanController extends Controller
+class DiagnosaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +17,7 @@ class PemeriksaanController extends Controller
      */
     public function index()
     {
-        return view('pemeriksaan.index');
+        //
     }
 
     /**
@@ -36,9 +38,37 @@ class PemeriksaanController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->validate($request, [
+            'tgl_daftar' => 'required',
+            'anamnesa' => 'string|required',
+            'tinggi_badan' => 'required',
+            'berat_badan' => 'required',
+            'suhu_badan' => 'required',
+            'tekanan_darah' => 'required',
+            'diagnosa_1' => 'required',
+            'icd_1' => 'required',
+        ]);
 
+        date_default_timezone_set('Asia/Jakarta');
+        $tgl = $request->tgl_daftar;
+        $tgl = implode("-", array_reverse(explode("/", $tgl)));
+
+        $diagnosa = new Medical_rec;
+        $diagnosa->tgl_periksa = $tgl;
+        $diagnosa->id_kunjungan = $request->id_kunjungan;
+        $diagnosa->anamnesa = ucfirst($request->anamnesa);
+        $diagnosa->tinggi_badan = $request->tinggi_badan;
+        $diagnosa->berat_badan = $request->berat_badan;
+        $diagnosa->suhu_badan = $request->suhu_badan;
+        $diagnosa->tekanan_darah = $request->tekanan_darah;
+        $diagnosa->diagnosa_1 = $request->diagnosa_1;
+        $diagnosa->icd_1 = $request->icd_1;
+        $diagnosa->diagnosa_2 = $request->diagnosa_2;
+        $diagnosa->icd_2 = $request->icd_2;
+        $diagnosa->keterangan = $request->keterangan;
+        $diagnosa->save();
+        return $diagnosa;
+    }
 
     /**
      * Display the specified resource.
@@ -46,7 +76,7 @@ class PemeriksaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function diagnosa($id)
+    public function show($id)
     {
         $pasien = DB::table('kunjungan as k')
                     ->leftjoin('pasien as p', 'k.id_pasien', '=', 'p.id')
@@ -68,7 +98,6 @@ class PemeriksaanController extends Controller
                              'job.nama as job')
                     ->where('k.id', $id)->first();
         return view('pemeriksaan.diagnosa', compact('pasien'));
-        //dd($pasien);
     }
 
     /**
@@ -105,36 +134,36 @@ class PemeriksaanController extends Controller
         //
     }
 
-     public function tblPemeriksaan(){
-      //list daftar
-      $model = DB::table('kunjungan')
-                   ->join('pasien', 'kunjungan.id_pasien', '=', 'pasien.id')
-                   ->join('poli', 'kunjungan.id_poli', '=', 'poli.id')
-                   ->join('pasien_tp', 'kunjungan.id_pasien_tp', '=', 'pasien_tp.id')
-                   ->join('status_proses', 'kunjungan.id_status', '=', 'status_proses.id')
-                   ->select('kunjungan.id',
-                            'kunjungan.tgl_daftar', 
-                            'pasien.nama as nama',
-                            'pasien.no_rm',
-                            'poli.nama as poli',
-                            'pasien_tp.nama as tipe',
-                            'status_proses.nama as status')
-                   ->orderby('kunjungan.tgl_daftar', 'DESC')
-                   ->orderby('kunjungan.created_at', 'DESC');
-
-      return DataTables::of($model)
-          ->addColumn('action', function($model){
-                return view('pemeriksaan.action', [
+    public function tblDiagnosa($id){
+        // $id = \Request::segment(2);
+        $model = DB::table('medical_recs as mr')
+                ->leftjoin('kunjungan as k', 'mr.id_kunjungan', '=', 'k.id')
+                ->leftjoin('pasien as p', 'k.id_pasien', '=', 'p.id')
+                ->select('mr.id',
+                         'mr.id_kunjungan',
+                         'mr.tgl_periksa',
+                         'mr.diagnosa_1',
+                         'mr.icd_1',
+                         'mr.diagnosa_2',
+                         'mr.icd_2',
+                         'mr.created_at')
+                ->where('mr.id_kunjungan', $id)
+                ->orderby('created_at', 'DESC')->get();
+        //dd($id);
+        
+        return Datatables::of($model)
+        ->addColumn('action', function($model){
+                return view('pemeriksaan.action_diagnosa', [
                     'model' => $model,
-                    'url_periksa' => route('diagnosa.show', $model->id),
+                    'url_show' => route('diagnosa.show', $model->id),
                     'url_edit' => route('diagnosa.edit', $model->id),
                     'url_destroy' => route('diagnosa.destroy', $model->id)
-              ]);
-          })
-          ->addIndexColumn()
-          ->rawColumns(['action'])
-          ->make(true);
-    }
+                ]);
+            })
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
 
+    }
 
 }

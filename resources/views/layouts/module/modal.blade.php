@@ -12,7 +12,7 @@
             
             <div class="modal-footer" id="modal-footer">
                 <div class="col-sm-6">
-                    <button type="button" class="btn btn-primary pull-right" id="modal-btn-save">  Save changes</button>
+                    <button type="button" class="btn btn-primary pull-right" id="modal-btn-save"> Save changes</button>
                 </div>    
             </div>
         </div>

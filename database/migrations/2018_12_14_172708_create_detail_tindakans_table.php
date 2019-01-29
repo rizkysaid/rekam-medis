@@ -16,7 +16,8 @@ class CreateDetailTindakansTable extends Migration
         Schema::create('detail_tindakan', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
-            $table->integer('harga');
+            $table->integer('biaya');
+            $table->text('keterangan');
             $table->timestamps();
         });
     }

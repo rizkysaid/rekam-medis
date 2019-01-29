@@ -50,7 +50,7 @@
                                             <th class="text-center">No. Telepon</th>
                                             <th class="text-center">Poli</th>
                                             <th class="text-center">Spesialis</th>
-                                            <th>Action</th>
+                                            <th>Proses</th>
                                         </tr>
                                     </thead>
                                     <tbody>

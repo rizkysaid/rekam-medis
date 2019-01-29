@@ -44,9 +44,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2-bootstrap4.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2-bootstrap4.min.css') }}">
 
-    <style type="text/css">
-      @stack('css')
-    </style>
+    @stack('css')
 
     @yield('css')
     
@@ -78,6 +76,8 @@
         @include('layouts.module.footer')
 
         @include('layouts.module.modal')
+
+        @include('laporan.modal_kunjungan');
 
     </div>
 
@@ -123,6 +123,8 @@
    
     $('#tgl_lahir').inputmask('99/99/9999', { 'placeholder': 'dd/mm/yyyy' });
     $('#tgl_daftar').inputmask('99/99/9999', { 'placeholder': 'dd/mm/yyyy' });
+    $('#td').inputmask('999 / 999');
+
     $('[data-mask]').inputmask();
 
     $('#tgl_lahir').datepicker({
